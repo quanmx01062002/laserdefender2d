@@ -57,7 +57,8 @@ public class Player : MonoBehaviour {
 
     private void Die()
     {
-        FindObjectOfType<Level>().LoadGameOver();
+        Debug.Log("Player Die");
+        //FindObjectOfType<Level>().LoadGameOver();
         Destroy(gameObject);
         AudioSource.PlayClipAtPoint(deathSound, Camera.main.transform.position, deathSoundVolume);   
     }
@@ -83,15 +84,24 @@ public class Player : MonoBehaviour {
     {
         while (true)
         {
+            var spawnLocation = transform.position;
+            spawnLocation.y = transform.position.y + 1f;
+
             GameObject laser = Instantiate(
-                    laserPrefab,
-                    transform.position,
-                    Quaternion.identity) as GameObject;
-            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, projectileSpeed);
+                laserPrefab,
+                spawnLocation,
+                Quaternion.identity) as GameObject;
+
+            laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0f, projectileSpeed);
+
+            Destroy(laser, 3f); // Destroy the laser object after 10 seconds
+
             AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, shootSoundVolume);
             yield return new WaitForSeconds(projectileFiringPeriod);
         }
     }
+
+
 
 
     private void Move()
