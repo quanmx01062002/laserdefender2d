@@ -18,7 +18,7 @@ public class Player : MonoBehaviour {
     [Header("Projectile")]
     [SerializeField] GameObject laserPrefab;
     [SerializeField] float projectileSpeed = 10f;
-    [SerializeField] float projectileFiringPeriod = 0.1f;
+    [SerializeField] float projectileFiringPeriod = 0.3f;
 
     Coroutine firingCoroutine;
 
