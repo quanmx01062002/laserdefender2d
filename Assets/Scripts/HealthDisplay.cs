@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthDisplay : MonoBehaviour {
+public class HealthDisplay : MonoBehaviour
+{
 
     Text healthText;
     Player player;
@@ -18,7 +19,7 @@ public class HealthDisplay : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-        healthText.text = player.GetHealth().ToString();
+        healthText.text = "HP: " + player.GetHealth().ToString();
     }
 
 }
