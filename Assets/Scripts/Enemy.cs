@@ -48,20 +48,25 @@ public class Enemy : MonoBehaviour
 
     private void Fire()
     {
+        var x = transform.position;
+        x.y = x.y - 1;
         GameObject laser = Instantiate(
             projectile,
-            transform.position,
+            x,
             Quaternion.identity
             ) as GameObject;
-        laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -projectileSpeed - 1);
+        laser.GetComponent<Rigidbody2D>().velocity = new Vector2(0, -projectileSpeed);
         AudioSource.PlayClipAtPoint(shootSound, Camera.main.transform.position, shootSoundVolume);
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
-        if (!damageDealer) { return; }
-        ProcessHit(damageDealer);
+        if (other.gameObject.tag == "PlayerLazer" || other.gameObject.tag == "Player")
+        {
+            DamageDealer damageDealer = other.gameObject.GetComponent<DamageDealer>();
+            if (!damageDealer) { return; }
+            ProcessHit(damageDealer);
+        }
     }
 
     private void ProcessHit(DamageDealer damageDealer)
